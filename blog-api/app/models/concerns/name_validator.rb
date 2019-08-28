@@ -4,7 +4,7 @@ class NameValidator < ActiveModel::Validator
     if field_val.nil? || field_val.empty?
       return record.errors.add options[:field_name].to_sym, "поле не може бути порожнім, відсутнім"
     end
-    words = field_val.split(" ")
+    words = field_val.tr('.', '').split(" ")
     if words.length < 2
       record.errors.add options[:field_name].to_sym, "мінімум два слова"
     end
