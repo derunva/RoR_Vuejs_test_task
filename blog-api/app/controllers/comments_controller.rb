@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :find_commentable
   # GET /comments
   def index
-    @comments = Comment.all
+    @comments = @commentable.comments.all
 
     render json: @comments
   end
