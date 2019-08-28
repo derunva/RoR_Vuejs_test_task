@@ -5,6 +5,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+require("./assets/main.sass")
+
 new Vue({
   store,
   router,
