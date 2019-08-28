@@ -3,7 +3,8 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    category_id = params[:category]
+    @posts = Post.where(:category_id => category_id)
 
     render json: @posts
   end
