@@ -10,10 +10,18 @@
       img(:src="imgUrl" :alt="post.name")
     .post--content
       |{{post.content}}
+    CommentsList(:list="post.comments")
+    CommentAdd(:type="'посту'", :url="url")
 </template>
 <script>
+  import CommentAdd from '@/components/CommentAdd.vue'
+  import CommentsList from '@/components/CommentsList.vue'
   import {mapState} from 'vuex'
   export default{
+    components:{
+      CommentAdd,
+      CommentsList
+    },
     data: function(){
       return{
         imagesStorageHost: 'http://localhost:3000'
@@ -30,6 +38,9 @@
       imgUrl:function(){
         let url = this.post.file.url || ''
         return this.imagesStorageHost+url
+      },
+      url: function(){
+        return '/posts/'+this.post.id+'/comments'
       }
     }
   }

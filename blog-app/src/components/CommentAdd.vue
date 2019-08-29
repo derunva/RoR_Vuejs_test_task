@@ -20,8 +20,12 @@ export default{
   },
   methods:{
     sendComment(){
-      console.log(this.comment)
+      console.log(this.url)
       this.$store.dispatch('leaveComment', {path: this.url, data: this.comment })
+      this.comment = {
+        author: '',
+        content: ''
+      }
     }
   },
   props:{

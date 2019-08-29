@@ -38,9 +38,30 @@
         this.routeName = to.name
       }
     },
+    channels:{
+      CommentUpdateChannel:{
+        connected(){
+          console.log('connected');
+        },
+        rejected() {
+          console.log('rejected')
+        },
+        received(data) {
+          if(data.message == "Category"){
+            this.$store.dispatch('loadCategory', {id:this.$route.params.id })
+          }
+          if(data.message == "Post"){
+            this.$store.dispatch('loadPost', {id:this.$route.params.post_id })
+          }
+        },
+        disconnected() {
+          console.log('disconnected')
+        }
+      }
+    },
     mounted(){
+      this.$cable.subscribe({ channel: 'CommentUpdateChannel', room: 'public' });
       this.routeName = this.$route.name
-      console.log(this.$route)
       if(this.$route.params.id){
         let payload = {
           id: this.$route.params.id

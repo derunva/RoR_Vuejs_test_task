@@ -19,11 +19,6 @@
 <script >
   import {mapState} from 'vuex';
   export default{
-    watch:{
-      error(){
-        console.log(this.custom_error)
-      }
-    },
     methods:{
       closeErrror(){
         this.$store.dispatch('unsetError')

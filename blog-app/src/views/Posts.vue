@@ -9,8 +9,9 @@
 <script>
 // @ is an alias to /src
 import CommentAdd from '@/components/CommentAdd.vue'
-import Post from '@/components/Post.vue'
 import CommentsList from '@/components/CommentsList.vue'
+import Post from '@/components/Post.vue'
+
 import {mapState} from 'vuex';
 export default {
   components: {

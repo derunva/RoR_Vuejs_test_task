@@ -24,7 +24,6 @@ export default new Vuex.Store({
       items = items.filter(x=>{
         return x.id != id
       })
-      console.log(items)
       state[list_name] = items
     },
     SET_BY_ITEM(state, {item , list_name}){
@@ -64,14 +63,12 @@ export default new Vuex.Store({
   actions: {
     loadPost({commit}, payload){
       let path = [apiRoot, postsPath, payload.id].join('/')
-      console.log(path)
       axios.get(path)
         .then(response=>{
           commit('SET_POST', response.data)
         })
         .catch((err)=>{
           let errors = Object.assign({}, err)
-          console.log(errors)
         })
     },
     newPost({commit}, formData){
@@ -82,7 +79,6 @@ export default new Vuex.Store({
         }
       })
       .then(response => {
-        console.log(response)
         EventBus.$emit('post_done', response.data);
       })
       .catch((err)=>{
@@ -91,7 +87,6 @@ export default new Vuex.Store({
       })
     },
     updatePost({commit}, {formData, id}){
-      console.log(formData.get('post'))
       let path = [apiRoot, postsPath, id].join('/')
       axios.put(path, formData, {
         headers: {
@@ -99,7 +94,6 @@ export default new Vuex.Store({
         }
       })
       .then(response => {
-        console.log(response)
         EventBus.$emit('post_done', response.data);
       })
       .catch((err)=>{
@@ -127,26 +121,22 @@ export default new Vuex.Store({
       axios
         .get(path)
         .then((responce)=>{
-          console.log(responce)
           let items = responce.data;
           commit('SET_CATS', items)
         })
         .catch((err)=>{
           let errors = Object.assign({}, err)
-          console.log(errors)
         })
     },
-    loadCategory({commit}, payload){
+    loadCategory({commit}, payload){ 
       var path = [apiRoot, categoriesPath, payload.id].join('/')
       axios.get(path)
       .then((responce)=>{
-        console.log(responce)
         let item = responce.data;
         commit('SET_CAT', item)
       })
       .catch((err)=>{
         let errors = Object.assign({}, err)
-        console.log(errors)
       })
     },
     loadPosts({commit}, payload){
@@ -160,7 +150,6 @@ export default new Vuex.Store({
       })
       .catch((err)=>{
         let errors = Object.assign({}, err)
-        console.log(errors)
       })
 
     },
@@ -184,11 +173,9 @@ export default new Vuex.Store({
         })
     },
     leaveComment({commit}, payload){
-      console.log(payload)
       let path = [apiRoot, payload.path].join('/')
       axios.post(path, payload.data)
         .then(response => {
-          console.log(response)
         })
         .catch((err)=>{
           let errors = Object.assign({}, err)
@@ -200,7 +187,6 @@ export default new Vuex.Store({
       axios.put(path, payload.data)
       .then((responce)=>{
         let item = responce.data;
-        console.log(item)
         commit('SET_SUCCESS', item.id)
       })
       .catch((err)=>{
