@@ -50,3 +50,9 @@ ruby on rails
 rack-cors - CORS  
 carrierwave, rmagick - fileupload  
 redis - need for actioncable  
+
+## Badly done
+
+websocket client does not reconnect then connection close  
+no validation on first capitalized letters, because i storage data in lower regiter and make capitalization by CSS  
+forms may need to be redone
