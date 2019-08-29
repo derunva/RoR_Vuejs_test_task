@@ -55,4 +55,4 @@ redis - need for actioncable
 
 websocket client does not reconnect then connection close  
 no validation on first capitalized letters, because i storage data in lower regiter and make capitalization by CSS  
-forms may need to be redone
+forms are better recast
