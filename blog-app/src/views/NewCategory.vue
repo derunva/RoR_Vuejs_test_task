@@ -14,6 +14,7 @@ input, textarea
     .button.button-primary(@click="saveCategory") Зберегти
 </template>
 <script>
+  import EventBus from '../event-bus';
   export default{
     data: function(){
       return {
@@ -22,6 +23,12 @@ input, textarea
           description: ''
         }
       }
+    },
+    mounted(){
+      EventBus.$on('post_done',  (payLoad) => {
+        console.log(123)
+        this.$router.push({ path: '/' })
+      });
     },
     methods:{
       saveCategory(){

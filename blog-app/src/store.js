@@ -106,6 +106,7 @@ export default new Vuex.Store({
       axios.post(path, item)
         .then((response)=>{
           let item = response.data;
+          EventBus.$emit('post_done', response.data);
           commit('NEW_CAT', item)
         })
         .catch((err)=>{
@@ -128,7 +129,7 @@ export default new Vuex.Store({
           let errors = Object.assign({}, err)
         })
     },
-    loadCategory({commit}, payload){ 
+    loadCategory({commit}, payload){
       var path = [apiRoot, categoriesPath, payload.id].join('/')
       axios.get(path)
       .then((responce)=>{
