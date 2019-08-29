@@ -47,6 +47,6 @@ sass and pug - preprocessors
 actioncable-vue - listening websocket
 
 ruby on rails  
-rack-cors - CORS
-carrierwave, rmagick - fileupload
-redis - need for actioncable
+rack-cors - CORS  
+carrierwave, rmagick - fileupload  
+redis - need for actioncable  
