@@ -1,6 +1,5 @@
 <template lang="pug">
-  .comments
-    |{{url}}
+  .comment
     h2.subtitle Залиште коментар до {{type}}
     p автор
     input.input(type="text" v-model="comment.author")

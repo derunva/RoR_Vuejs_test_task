@@ -2,18 +2,21 @@
   .posts
     .h1.title Пости категорії {{category.name}}
     post(v-for="post in posts" :item="post")
-    comments(:type="'категорії'", :url="url")
+    CommentsList(:list="category.comments")
+    CommentAdd(:type="'категорії'", :url="url")
 </template>
 
 <script>
 // @ is an alias to /src
-import Comments from '@/components/Comments.vue'
+import CommentAdd from '@/components/CommentAdd.vue'
 import Post from '@/components/Post.vue'
+import CommentsList from '@/components/CommentsList.vue'
 import {mapState} from 'vuex';
 export default {
   components: {
     Post,
-    Comments
+    CommentAdd,
+    CommentsList
   },
   mounted(){
     let payload = {
