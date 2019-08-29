@@ -1,6 +1,6 @@
 <template lang="pug">
   .box.is-secondary.is-child
-    .title {{item.name}}
+    .title.title-name {{item.name}}
     .subtitle {{item.description}}
 </template>
 <script>

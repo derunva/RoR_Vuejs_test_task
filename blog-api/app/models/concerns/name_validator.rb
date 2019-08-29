@@ -1,6 +1,6 @@
 class NameValidator < ActiveModel::Validator
   def validate(record)
-    field_val = record[options[:field_name].to_sym]
+    field_val = record[options[:field_name].to_sym].squish
     if field_val.nil? || field_val.empty?
       return record.errors.add options[:field_name].to_sym, "поле не може бути порожнім, відсутнім"
     end
