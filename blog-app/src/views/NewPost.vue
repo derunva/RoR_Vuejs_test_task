@@ -18,16 +18,9 @@ input, textarea
 </template>
 <script>
   import {mapState} from 'vuex'
+  import EventBus from '../event-bus';
   export default{
-    data: function(){
-      return {
-        post: {
-          name: '',
-          content: ''
-        },
-        file: null
-      }
-    },
+
     methods:{
       savePost(){
         var formData = new FormData(this.$refs.form);
@@ -47,6 +40,9 @@ input, textarea
         id: this.$route.params.id
       };
       this.$store.dispatch('loadCategory', payload)
+      EventBus.$on('post_done',  (payLoad) => {
+        this.$router.push({ path: '/categories/' + this.category.id+'/'+payLoad.id })
+      });
     }
   };
 </script>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import EventBus from './event-bus';
 Vue.use(Vuex)
 var apiRoot = "http://localhost:3000"
 var categoriesPath = "categories"
@@ -82,6 +83,24 @@ export default new Vuex.Store({
       })
       .then(response => {
         console.log(response)
+        EventBus.$emit('post_done', response.data);
+      })
+      .catch((err)=>{
+        let errors = Object.assign({}, err)
+        commit('SET_ERROR', errors.response)
+      })
+    },
+    updatePost({commit}, {formData, id}){
+      console.log(formData.get('post'))
+      let path = [apiRoot, postsPath, id].join('/')
+      axios.put(path, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(response => {
+        console.log(response)
+        EventBus.$emit('post_done', response.data);
       })
       .catch((err)=>{
         let errors = Object.assign({}, err)
@@ -162,6 +181,18 @@ export default new Vuex.Store({
       axios.delete(path)
         .then((response)=>{
           commit('DELETE_ITEM', {id: id, list_name: "posts"})
+        })
+    },
+    leaveComment({commit}, payload){
+      console.log(payload)
+      let path = [apiRoot, payload.path].join('/')
+      axios.post(path, payload.data)
+        .then(response => {
+          console.log(response)
+        })
+        .catch((err)=>{
+          let errors = Object.assign({}, err)
+          commit('SET_ERROR', errors.response)
         })
     },
     updateCategory({commit}, payload){

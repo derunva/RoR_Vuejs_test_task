@@ -6,6 +6,7 @@ import Posts from './views/Posts.vue'
 import NewCategory from './views/NewCategory.vue'
 import NewPost from './views/NewPost.vue'
 import Post from './views/Post.vue'
+import PostEdit from './views/PostEdit.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -36,7 +37,11 @@ export default new Router({
       name: 'post',
       component: Post
     },
-
+    {
+      path: '/categories/:id/:post_id/edit',
+      name: 'post',
+      component: PostEdit
+    },
     { path: '*', component: NotFound }
   ]
 })
