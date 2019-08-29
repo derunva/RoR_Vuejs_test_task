@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import NotFound from './views/NotFound.vue'
 import Posts from './views/Posts.vue'
 import NewCategory from './views/NewCategory.vue'
+import NewPost from './views/NewPost.vue'
+import Post from './views/Post.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -20,8 +22,19 @@ export default new Router({
       component: NewCategory
     },
     {
+      path: '/categories/:id/new',
+      name: 'new_post',
+      component: NewPost
+    },
+    {
       path: '/categories/:id',
+      name: 'posts',
       component: Posts
+    },
+    {
+      path: '/categories/:id/:post_id',
+      name: 'post',
+      component: Post
     },
 
     { path: '*', component: NotFound }

@@ -1,3 +1,15 @@
+<style scoped lang="sass">
+.errors
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  max-height: 90vh
+  max-width: 90vw
+  margin: auto
+  overflow: auto
+</style>
 <template lang="pug">
   .errors(v-if="custom_error.data")
     .notification.is-warning
@@ -24,14 +36,3 @@
     }
   };
 </script>
-<style lang="sass">
-.errors
-  position: fixed
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  max-height: 90vh
-  max-width: 90vw
-  margin: auto
-</style>

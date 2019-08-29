@@ -6,7 +6,13 @@
           .title Blog
           router-link.button.is-primary(to="/") На головну
           | &nbsp;
-          router-link.button.is-primary(to="categories/new", v-if="routeName == 'home'") Нова категорія
+          router-link.button.is-primary(to="/categories/new", v-if="routeName == 'home'") Нова категорія
+          | &nbsp;
+          router-link.button.button-primary(v-if="routeName == 'posts'" , :to="{path: '/categories/' + category.id+ '/new'}") Новий пост
+          | &nbsp;
+          router-link.button.button-primary(v-if="routeName == 'post' || routeName == 'new_post'" , :to="{path: '/categories/' + category.id}") Список постів
+          | &nbsp;
+          router-link.button(v-if="routeName == 'post'" :to="{path: '/categories/' + category.id+'/'+post.id+'/edit'}") редагувати
     .section
       .container
         router-view
@@ -17,6 +23,7 @@
 </template>
 <script>
   import Errors from './components/Errors.vue'
+  import {mapState} from 'vuex';
   export default{
     data: function() {
       return {
@@ -29,9 +36,23 @@
     watch: {
     '$route' (to, from) {
         this.routeName = to.name
-        console.log(to.name)
-        // react to route changes...
       }
+    },
+    mounted(){
+      this.routeName = this.$route.name
+      console.log(this.$route)
+      if(this.$route.params.id){
+        let payload = {
+          id: this.$route.params.id
+        };
+        this.$store.dispatch('loadCategory', payload)
+      }
+    },
+    computed: {
+      ...mapState([
+        'category',
+        'post'
+      ])
     }
   };
 </script>

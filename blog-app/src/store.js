@@ -18,13 +18,13 @@ export default new Vuex.Store({
     NEW_CAT(state, item){
       state.categories.push(item)
     },
-    DELETE_ITEM(state, {item , list_name}){
-      console.log(state['categories'])
-      let items = state[list_name];
-      let index = items.findINdex((x)=>{
-        return x.id == item.id
+    DELETE_ITEM(state, {id , list_name}){
+      let items = state[list_name].slice(0);
+      items = items.filter(x=>{
+        return x.id != id
       })
-      state[list_name] = items.splice(index, 1)
+      console.log(items)
+      state[list_name] = items
     },
     SET_BY_ITEM(state, {item , list_name}){
       let items = state[list_name];
@@ -61,6 +61,33 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    loadPost({commit}, payload){
+      let path = [apiRoot, postsPath, payload.id].join('/')
+      console.log(path)
+      axios.get(path)
+        .then(response=>{
+          commit('SET_POST', response.data)
+        })
+        .catch((err)=>{
+          let errors = Object.assign({}, err)
+          console.log(errors)
+        })
+    },
+    newPost({commit}, formData){
+      let path = [apiRoot, postsPath].join('/')
+      axios.post(path, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch((err)=>{
+        let errors = Object.assign({}, err)
+        commit('SET_ERROR', errors.response)
+      })
+    },
     newCategory({commit}, item){
       let path = [apiRoot, categoriesPath].join('/')
       axios.post(path, item)
@@ -127,6 +154,14 @@ export default new Vuex.Store({
       axios.delete(path)
         .then((response)=>{
           commit('DELETE_ITEM', {id: id, list_name: "categories"})
+        })
+    },
+    deletePost({commit}, id){
+
+      var path = [apiRoot, postsPath, id].join('/')
+      axios.delete(path)
+        .then((response)=>{
+          commit('DELETE_ITEM', {id: id, list_name: "posts"})
         })
     },
     updateCategory({commit}, payload){
